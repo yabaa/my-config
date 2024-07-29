@@ -1,1 +1,41 @@
+[user]
+  name = Yahya
+  email = TODO
+
+[alias]
+  st = status
+  ci = commit
+  co = checkout
+  lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %cr)%Creset'
+  ulg = !(git fetch && git lg ..@{u})
+  llg = !(git lg @{u}..)
+  ready = rebase -i @{u}
+  oops = !(git ci --amend -C HEAD)
+  sortag = "!(git for-each-ref --sort=taggerdate --format '%(refname) %(taggerdate)' refs/tags)"
+  mvbranch = "!moveit() { git branch -m $1 $2; git push origin :$1; git push --set-upstream origin $2; }; moveit"
+  up = pull --rebase --autostash
+  pub = "!f() { git push -u ${1:-origin} git symbolic-ref HEAD; }; f"  
+  
+  # undo last commit, keeping changes in filesystem
+  undo-commit = reset HEAD~1 --mixed
+  undo = reset HEAD~1 --mixed
+
+  undo-add = reset --keep
+  rk = reset --keep
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[core]
+  editor = nano
+
+[commit]
+  template = ~/.gitmessage
+
+[push]
+  autoSetupRemote = true
+
 
